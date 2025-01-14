@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AnalyseHorsJeu {
 
-    public static List<Joueur> analyserJoueurs(List<Joueur> joueurs, Point positionBallon, String couleur, List<Joueur> joueursOpposants, boolean ballonDansLeCamp) {
+    public static List<Joueur> analyserJoueurs(List<Joueur> joueurs,Joueur joueurProcheBallon, Point positionBallon, String couleur, List<Joueur> joueursOpposants, boolean ballonDansLeCamp) {
         List<Joueur> resultats = new ArrayList<>();
         Joueur gardien = DetectionJoueur.detecterGardien(joueurs, 600, 100);
         
@@ -17,8 +17,8 @@ public class AnalyseHorsJeu {
         Joueur dernierDefenseurOpposant = DetectionJoueur.detecterDernierDefenseur(joueursOpposants, gardienOpposant);
         for (Joueur joueur : joueurs) {
             
-
-            if (joueur.equals(gardien)) {
+           
+            if (joueur.equals(gardien) || joueur.equals(joueurProcheBallon)) {
                 
                 continue;
             }
@@ -52,7 +52,7 @@ public class AnalyseHorsJeu {
 
            
         }
-        dernierDefenseurOpposant.setStatut("Dernier def");
+        dernierDefenseurOpposant.setStatut("def");
         return resultats;
     }
 
