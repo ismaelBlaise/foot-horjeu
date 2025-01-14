@@ -2,7 +2,7 @@ package affichage;
 
 import javax.swing.*;
 
-import fonction.Analyse;
+import fonction.AnalyseImage;
 
 import java.awt.*;
 import java.io.File;
@@ -105,7 +105,7 @@ public class Fenetre extends JFrame {
         }
 
          
-        Analyse analyse = new Analyse(currentImage);
+        AnalyseImage analyse = new AnalyseImage(currentImage);
 
          
         List<String> resultats = analyse.detectHorsJeu();
@@ -119,7 +119,7 @@ public class Fenetre extends JFrame {
         File imageFile = new File(currentImage);
         if (imageFile.exists()) {
              
-            imagePanel.loadImage(currentImage);
+            imagePanel.loadImage("E:\\S5\\1Programmation\\foot-horjeu\\image_modifiee.png");
 
             
         } else {

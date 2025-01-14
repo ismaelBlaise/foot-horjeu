@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Analyse {
+public class AnalyseImage {
     private Mat image;
     private Point positionBallonPrecedente;
 
-    public Analyse(String imagePath) {
+    public AnalyseImage(String imagePath) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         this.image = Imgcodecs.imread(imagePath);
         if (image.empty()) {
@@ -93,22 +93,28 @@ public class Analyse {
 
     private List<String> analyserJoueurs(List<Joueur> joueurs, Point positionBallon, String couleur, List<Joueur> joueursOpposants) {
         List<String> resultats = new ArrayList<>();
-
+    
         Joueur gardien = detecterGardien(joueurs);
         Joueur dernierDefenseurOpposant = detecterDernierDefenseur(joueursOpposants);
-
+    
         for (Joueur joueur : joueurs) {
             if (joueur.equals(gardien)) {
                 resultats.add("Joueur " + couleur + " en position " + joueur.getPosition() + " : Gardien");
                 continue;
             }
-
+    
+            if (dernierDefenseurOpposant == null) {
+                resultats.add("Impossible de déterminer le hors-jeu pour le joueur " + couleur + " en position " + joueur.getPosition() + " : Pas de défenseur détecté.");
+                continue;
+            }
+    
             String statut = (joueur.getPosition().x > dernierDefenseurOpposant.getPosition().x) ? "HJ (hors-jeu)" : "EJ (en-jeu)";
             resultats.add("Joueur " + couleur + " en position " + joueur.getPosition() + " : " + statut);
         }
-
+    
         return resultats;
     }
+    
 
     private Joueur detecterGardien(List<Joueur> joueurs) {
         return joueurs.stream().min(Comparator.comparingInt(j -> (int) j.getPosition().x)).orElse(null);
