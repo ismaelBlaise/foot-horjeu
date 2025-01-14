@@ -48,13 +48,13 @@ public class AnalyseImage {
         if (ballon == null) {
             throw new IllegalArgumentException("Ballon non détecté.");
         }
-        System.out.println(image.cols());
+         
         Imgproc.rectangle(image, ballon.getDimension().tl(), ballon.getDimension().br(),new Scalar(255, 255, 255), 2);
     
          
         Point positionBallon = ballon.getPosition();
         Joueur joueurProcheBallon = DetectionJoueur.detecterJoueurProcheDuBallon(joueursRouges, joueursBleus, positionBallon);
-        // boolean ballonDansLeCampDesRouges = positionBallon.x < image.width() / 2;
+         
         if(joueurProcheBallon.getCouleur().equals(JoueurCouleur.BLEU)){
             resultats.addAll(AnalyseHorsJeu.analyserJoueurs(joueursBleus, joueurProcheBallon, positionBallon, JoueurCouleur.BLEU, joueursRouges,   image.cols()));
         }
