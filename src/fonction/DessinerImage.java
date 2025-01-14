@@ -13,9 +13,9 @@ public class DessinerImage {
         Scalar couleurTexte = couleur.equals("Rouge") ? new Scalar(0, 0, 255) : new Scalar(255, 0, 0);
         Scalar couleurRect = couleur.equals("Rouge") ? new Scalar(0, 255, 255) : new Scalar(255, 255, 0);
 
-        Imgproc.putText(image, "Ballon", new Point(positionBallon.x - 20, positionBallon.y - 10),
-                    Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, couleurTexte, 2);
-
+        // Imgproc.putText(image, "Ballon", new Point(positionBallon.x - 20, positionBallon.y - 10),
+        //             Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, couleurTexte, 2);
+                    
         for (Joueur joueur : joueurs) {
             String statut = joueur.getStatut();
             Point position = joueur.getPosition();
@@ -29,8 +29,10 @@ public class DessinerImage {
                     Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, couleurTexte, 2);
 
             if (joueur.equals(joueurProcheBallon)) {
-                Imgproc.putText(image, "Leader", new Point(position.x - 20, position.y - 30),
-                        Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(0, 255, 0), 2);
+                
+                // Imgproc.putText(image, "Leader", new Point(position.x - 20, position.y - 30),
+                //         Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(0, 255, 0), 2);
+                        Imgproc.rectangle(image, joueur.getDimension().tl(), joueur.getDimension().br(),  new Scalar(0, 255, 0), 2);
             }
         }
     }
