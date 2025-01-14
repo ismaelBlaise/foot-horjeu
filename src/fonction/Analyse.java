@@ -3,6 +3,7 @@ package fonction;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 
 import util.Ballon;
 import util.Joueur;
