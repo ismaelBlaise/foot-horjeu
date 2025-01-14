@@ -28,10 +28,10 @@ public class AnalyseImage {
         Imgproc.cvtColor(image, hsvImage, Imgproc.COLOR_BGR2HSV);
 
         // Détection des joueurs et du ballon
-        List<Joueur> joueursRouges = DetectionJoueur.detecterJoueurs(hsvImage, new Scalar(0, 100, 100), new Scalar(10, 255, 255), "Rouge");
+        List<Joueur> joueursRouges = DetectionJoueur.detecterJoueurs(hsvImage, new Scalar(0, 100, 100), new Scalar(237, 28,36), "Rouge");
         List<Joueur> joueursBleus = DetectionJoueur.detecterJoueurs(hsvImage, new Scalar(100, 100, 100), new Scalar(140, 255, 255), "Bleu");
         Ballon ballon = DetectionBallon.detecterBallon(hsvImage, new Scalar(0, 0, 0), new Scalar(180, 255, 50));
-
+        System.out.println(joueursRouges.size());
         if (ballon == null) {
             throw new IllegalArgumentException("Ballon non détecté.");
         }
