@@ -7,11 +7,13 @@ public class Joueur {
     Point position;
     String couleur;
     Rect dimension;
+    String statut;
 
     public Joueur(Point position, String couleur, Rect dimension) {
         this.position = position;
         this.couleur = couleur;
         this.dimension = dimension;
+        this.statut="";
     }
 
     public Point getPosition() {
@@ -36,5 +38,13 @@ public class Joueur {
 
     public void setDimension(Rect dimension) {
         this.dimension = dimension;
+    }
+
+    public void setStatut(String statut){
+        this.statut=statut;
+    }
+
+    public String getStatut(){
+        return this.statut;
     }
 }
