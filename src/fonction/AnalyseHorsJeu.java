@@ -16,7 +16,7 @@ public class AnalyseHorsJeu {
 
         Joueur gardienOpposant = DetectionJoueur.detecterGardien(joueursOpposants, 0, 0);
         Joueur dernierDefenseurOpposant = detecterDernierDefenseur(joueursOpposants, gardienOpposant);
-
+        dernierDefenseurOpposant.setStatut("Dernier def");
         for (Joueur joueur : joueurs) {
             String statut;
 

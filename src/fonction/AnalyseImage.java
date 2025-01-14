@@ -35,10 +35,12 @@ public class AnalyseImage {
         if (ballon == null) {
             throw new IllegalArgumentException("Ballon non détecté.");
         }
+        // Imgproc.putText(image, "Ballon", new Point(ballon.getPosition().x - 20, ballon.getPosition().y - 10),
+        //             Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,  new Scalar(0, 0, 255), 2);
 
         Point positionBallon = ballon.getPosition();
         Joueur joueurProcheBallon = DetectionJoueur.detecterJoueurProcheDuBallon(joueursRouges, joueursBleus, positionBallon);
-        joueurProcheBallon.setStatut("Dernier def");
+        // joueurProcheBallon.setStatut("Dernier def");
         boolean ballonDansLeCampDesRouges = positionBallon.x < image.width() / 2;
 
         resultats.addAll(AnalyseHorsJeu.analyserJoueurs(joueursRouges, positionBallon, "Rouge", joueursBleus, ballonDansLeCampDesRouges));

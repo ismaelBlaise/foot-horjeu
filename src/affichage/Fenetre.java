@@ -2,8 +2,6 @@ package affichage;
 
 import javax.swing.*;
 
-import fonction.AnalyseImage;
-
 import java.awt.*;
 import java.io.File;
 import java.util.List;
@@ -105,7 +103,7 @@ public class Fenetre extends JFrame {
         }
 
          
-        AnalyseImage analyse = new AnalyseImage(currentImage);
+        fonction.AnalyseImage analyse = new fonction.AnalyseImage(currentImage);
 
          
         List<String> resultats = analyse.detectHorsJeu();
