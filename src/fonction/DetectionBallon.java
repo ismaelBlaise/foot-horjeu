@@ -10,60 +10,6 @@ import java.util.List;
 
 public class DetectionBallon {
 
-    // public static Ballon detecterBallon(Mat hsvImage, Scalar lowerBound, Scalar upperBound) {
-    //     // Créer un masque pour la couleur cible (par exemple, la couleur du ballon)
-    //     Mat mask = new Mat();
-    //     Core.inRange(hsvImage, lowerBound, upperBound, mask);
-
-    //     // Appliquer un flou pour réduire le bruit (flou médian pour mieux traiter les petits bruits)
-    //     Imgproc.medianBlur(mask, mask, 15);
-
-    //     // Liste pour stocker les contours trouvés
-    //     List<MatOfPoint> contours = new ArrayList<>();
-    //     Mat hierarchy = new Mat();
-    //     Imgproc.findContours(mask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-
-    //     // Vérifier chaque contour et détecter la forme circulaire
-    //     for (MatOfPoint contour : contours) {
-    //         // Calculer le périmètre du contour
-    //         double perimeter = Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true);
-
-    //         // Approximer le contour pour obtenir un polygone
-    //         MatOfPoint2f approx = new MatOfPoint2f();
-    //         Imgproc.approxPolyDP(new MatOfPoint2f(contour.toArray()), approx, 0.02 * perimeter, true);
-
-    //         // Vérifier si le contour est circulaire (approximativement un cercle)
-    //         if (approx.total() > 5) {  // Un cercle a plus de 5 points après approximation
-    //             // Calculer le centre et le rayon du cercle
-    //             Point center = new Point();
-    //             float[] radius = new float[1];
-
-    //             // Convertir le contour en MatOfPoint2f avant d'utiliser minEnclosingCircle
-    //             MatOfPoint2f contour2f = new MatOfPoint2f(contour.toArray());
-    //             Imgproc.minEnclosingCircle(contour2f, center, radius);
-
-    //             // Vérifier la circularité et la forme approximativement ronde
-    //             if (isCloseToCircle(contour, radius[0])) {
-    //                 // Créer un objet Ballon avec le centre et le rayon détectés
-    //                 Rect rect = Imgproc.boundingRect(contour); // Rectangle englobant
-    //                 // Vérification additionnelle : taille du rectangle pour éliminer les faux positifs
-    //                 if (rect.width > 20 && rect.height > 20 && rect.width < 100) {
-    //                     // Vérification du rapport de forme pour éliminer les objets non circulaires
-    //                     double aspectRatio = (double) rect.width / rect.height;
-    //                     if (aspectRatio > 0.8 && aspectRatio < 1.2) {
-    //                         // Filtrer les contours situés sur les bords du terrain ou près des buts
-    //                         if (!isInBordures(rect)) {
-    //                             return new Ballon(center, rect);
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // Retourner null si aucun ballon n'est trouvé
-    //     return null;
-    // }
 
     public static Ballon detecterBallon(Mat hsvImage, Scalar lowerBound, Scalar upperBound) {
         Mat mask = new Mat();
