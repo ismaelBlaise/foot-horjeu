@@ -1,28 +1,28 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "type": "java",
-            "name": "App",
+            "name": "Run App with OpenCV",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "foot-horjeu_3ec2f20d"
+            "projectName": "foot-horjeu_3ec2f20d",
+            "vmArgs": "-Djava.library.path=${workspaceFolder}/native"
         },
         {
             "type": "java",
-            "name": "Current File",
+            "name": "Run Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "vmArgs": "-Djava.library.path=${workspaceFolder}/native"
         },
         {
             "type": "java",
-            "name": "App",
+            "name": "Run App with OpenCV (Alternate Project)",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "foot-horsjeu_62d3484a"
+            "projectName": "foot-horsjeu_62d3484a",
+            "vmArgs": "-Djava.library.path=${workspaceFolder}/native"
         }
     ]
 }
