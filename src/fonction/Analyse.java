@@ -1,15 +1,11 @@
 package fonction;
 
-import org.bytedeco.opencv.opencv_core.*;
 import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
 
 import util.Ballon;
 import util.Joueur;
-
-import org.bytedeco.opencv.global.opencv_core;
-import org.bytedeco.opencv.global.opencv_imgcodecs;
-import org.bytedeco.opencv.global.opencv_imgproc;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;

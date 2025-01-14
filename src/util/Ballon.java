@@ -1,5 +1,7 @@
 package util;
-import org.bytedeco.opencv.opencv_core.*;
+
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 
 public class Ballon {
     Point position;

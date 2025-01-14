@@ -1,5 +1,8 @@
 package util;
-import org.bytedeco.opencv.opencv_core.*;
+
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+
 public class Joueur {
     Point position;
     String couleur;
