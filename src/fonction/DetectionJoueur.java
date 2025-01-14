@@ -40,21 +40,35 @@ public class DetectionJoueur {
     
     
 
-    public static Joueur detecterGardien(List<Joueur> joueurs, double positionButGauche , double positionButDroit) {
+    public static Joueur detecterGardien(List<Joueur> joueurs, String couleur, double positionButGauche, double positionButDroit) {
         Joueur gardienDetecte = null;
         double distanceMin = Double.MAX_VALUE;
     
+         
         for (Joueur joueur : joueurs) {
-            if (joueur.getPosition().x < positionButGauche || joueur.getPosition().x > positionButDroit) {
-                double distance = Math.abs(joueur.getPosition().x - (joueur.getPosition().x < positionButGauche ? positionButGauche : positionButDroit));
+            
+            if (joueur.getCouleur().equals(couleur)) {
+    
+                
+                double distanceGauche = Math.abs(joueur.getPosition().x - positionButGauche);
+                double distanceDroit = Math.abs(joueur.getPosition().x - positionButDroit);
+    
+                 
+                double distance = Math.min(distanceGauche, distanceDroit);
+    
+                 
                 if (distance < distanceMin) {
                     distanceMin = distance;
                     gardienDetecte = joueur;
                 }
             }
         }
+    
         return gardienDetecte;
     }
+     
+    
+    
     
 
     public static Joueur detecterJoueurProcheDuBallon(List<Joueur> joueursRouges, List<Joueur> joueursBleus, Point positionBallon) {

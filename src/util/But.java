@@ -7,10 +7,10 @@ public class But {
 
      
     private Point position;
-    private Rect dimmension;
-    public But(Point position, Rect dimmension) {
+    private Rect dimension;
+    public But(Point position, Rect dimension) {
         this.position = position;
-        this.dimmension = dimmension;
+        this.dimension = dimension;
     }
     public Point getPosition() {
         return position;
@@ -18,10 +18,11 @@ public class But {
     public void setPosition(Point position) {
         this.position = position;
     }
-    public Rect getDimmension() {
-        return dimmension;
+    public Rect getDimension() {
+        return dimension;
     }
-    public void setDimmension(Rect dimmension) {
-        this.dimmension = dimmension;
+    public void setDimension(Rect dimension) {
+        this.dimension = dimension;
     }
+    
 }
