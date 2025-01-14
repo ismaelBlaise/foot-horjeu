@@ -34,7 +34,7 @@ public class AnalyseImage {
                 new Scalar(170, 100, 100), new Scalar(180, 255, 255), // Deuxième plage de rouge
                 "Rouge"
         );
-        System.out.println(joueursRouges.size());
+        // System.out.println(joueursRouges.size());
         // Détection des joueurs bleus
         List<Joueur> joueursBleus = DetectionJoueur.detecterJoueurs(
                 hsvImage,

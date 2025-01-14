@@ -11,9 +11,9 @@ public class AnalyseHorsJeu {
 
     public static List<Joueur> analyserJoueurs(List<Joueur> joueurs, Point positionBallon, String couleur, List<Joueur> joueursOpposants, boolean ballonDansLeCamp) {
         List<Joueur> resultats = new ArrayList<>();
-        Joueur gardien = DetectionJoueur.detecterGardien(joueurs, 100, 100);
+        Joueur gardien = DetectionJoueur.detecterGardien(joueurs, 600, 100);
         
-        Joueur gardienOpposant = DetectionJoueur.detecterGardien(joueursOpposants, 0, 0);
+        Joueur gardienOpposant = DetectionJoueur.detecterGardien(joueursOpposants, 100, 100);
         Joueur dernierDefenseurOpposant = DetectionJoueur.detecterDernierDefenseur(joueursOpposants, gardienOpposant);
         for (Joueur joueur : joueurs) {
             

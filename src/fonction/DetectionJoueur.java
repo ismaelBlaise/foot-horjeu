@@ -41,7 +41,7 @@ public class DetectionJoueur {
     
     
 
-    public static Joueur detecterGardien(List<Joueur> joueurs, double positionButGauche, double positionButDroit) {
+    public static Joueur detecterGardien(List<Joueur> joueurs, double positionButGauche , double positionButDroit) {
         return joueurs.stream()
                 .filter(joueur -> joueur.getPosition().x < positionButGauche || joueur.getPosition().x > positionButDroit)
                 .min(Comparator.comparingDouble(joueur -> Math.abs(joueur.getPosition().x - (joueur.getPosition().x < positionButGauche ? positionButGauche : positionButDroit))))
