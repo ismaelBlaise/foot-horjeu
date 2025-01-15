@@ -37,6 +37,7 @@ public class DetectionBut {
 
                 if (rect.width < image.cols() && rect.height < image.rows()) {
                     if (estBordureBlanche(image, rect)) {
+                        System.out.println("AA");
                         buts[index] = new But(new Point(rect.x + rect.width / 2, rect.y + rect.height / 2), rect);
                         index++;   
                         if (index >= 2) {

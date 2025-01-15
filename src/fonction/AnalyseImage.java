@@ -56,10 +56,10 @@ public class AnalyseImage {
         Joueur joueurProcheBallon = DetectionJoueur.detecterJoueurProcheDuBallon(joueursRouges, joueursBleus, positionBallon);
          
         if(joueurProcheBallon.getCouleur().equals(JoueurCouleur.BLEU)){
-            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(joueursBleus, joueurProcheBallon, positionBallon, JoueurCouleur.BLEU, joueursRouges,   image.cols()));
+            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursBleus, joueurProcheBallon, positionBallon, joueursRouges,   image.cols()));
         }
         else{
-            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(joueursRouges, joueurProcheBallon, positionBallon, JoueurCouleur.ROUGE, joueursBleus, image.cols()));
+            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursRouges, joueurProcheBallon, positionBallon,  joueursBleus, image.cols()));
         }
         
 
@@ -67,8 +67,9 @@ public class AnalyseImage {
 
         
         for (But but : buts) {
+            
             if (but != null) {
-                System.out.println("AA");
+                
                 Imgproc.rectangle(image, but.getDimension().tl(), but.getDimension().br(), new Scalar(0, 255, 255), 2);
             }
         }

@@ -13,7 +13,7 @@ public class But {
         this.dimension = dimension;
     }
     public Point getPosition() {
-        return position;
+        return position; 
     }
     public void setPosition(Point position) {
         this.position = position;

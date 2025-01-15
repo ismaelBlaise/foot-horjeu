@@ -78,7 +78,7 @@ public class DetectionJoueur {
     
         Joueur joueurProche = null;
         double distanceMin = Double.MAX_VALUE;
-    
+        
         for (Joueur joueur : tousLesJoueurs) {
             double distance = calculerDistance(joueur.getPosition(), positionBallon);
             if (distance < distanceMin) {
