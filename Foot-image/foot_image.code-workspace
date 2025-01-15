@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "foot_image",
+			"path": ".."
+		},
+		{
+			"name": "test",
+			"path": "E:/test"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.outputPath": "bin",
+		"java.project.referencedLibraries": [
+			"lib/**/*.jar"
+		]
+	}
+}
