@@ -58,8 +58,8 @@ public class AnalyseHorsJeu {
          
         if (terrainImage != null && dernierDefenseurOpposant != null) {
  
-            Point pointDebut = new Point(dernierDefenseurOpposant.getPosition().x+dernierDefenseurOpposant.getDimension().width/2, 0);   
-            Point pointFin = new Point(dernierDefenseurOpposant.getPosition().x+dernierDefenseurOpposant.getDimension().width/2, terrainImage.rows());  
+            Point pointDebut = new Point(dernierDefenseurOpposant.getPosition().x, 0);   
+            Point pointFin = new Point(dernierDefenseurOpposant.getPosition().x, terrainImage.rows());  
 
              
             Imgproc.line(terrainImage, pointDebut, pointFin, new Scalar(0, 0, 255), 2);  

@@ -118,7 +118,7 @@ public class Fenetre extends JFrame {
         File imageFile = new File(currentImage);
         if (imageFile.exists()) {
              
-            imagePanel.loadImage("E:\\S5\\1Programmation\\foot-horjeu\\image_modifiee.png");
+            imagePanel.loadImage("image_modifiee.png");
 
             
         } else {
