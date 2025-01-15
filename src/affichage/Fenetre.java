@@ -112,6 +112,7 @@ public class Fenetre extends JFrame {
             List<Joueur> resultats = analyse.detectHorsJeu();
 
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         } 
         

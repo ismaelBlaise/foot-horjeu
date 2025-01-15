@@ -42,7 +42,7 @@ public class AnalyseImage {
 
         Equipe joueursBleus = DetectionJoueur.detecterJoueurs(
                 hsvImage,
-                new Scalar(100, 100, 100), new Scalar(140, 255, 255), 
+                new Scalar(90, 50, 0), new Scalar(130, 255, 255), 
                 null, null,  
                 JoueurCouleur.BLEU
         );
@@ -52,7 +52,7 @@ public class AnalyseImage {
         }
     
          
-        Ballon ballon = DetectionBallon.detecterBallon(hsvImage, new Scalar(0, 0, 0), new Scalar(180, 255, 50));
+        Ballon ballon = DetectionBallon.detecterBallon(hsvImage, new Scalar(0, 0, 0), new Scalar(180, 50, 50));
         if (ballon == null) {
             throw new IllegalArgumentException("Ballon non détecté.");
         }
