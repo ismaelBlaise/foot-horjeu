@@ -107,10 +107,14 @@ public class Fenetre extends JFrame {
          
         fonction.AnalyseImage analyse = new fonction.AnalyseImage(currentImage);
 
-         
-        @SuppressWarnings("unused")
-        List<Joueur> resultats = analyse.detectHorsJeu();
+        try {
+            @SuppressWarnings("unused")
+            List<Joueur> resultats = analyse.detectHorsJeu();
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        } 
+        
          
         
 

@@ -23,7 +23,7 @@ public class AnalyseImage {
         }
     }
 
-    public List<Joueur> detectHorsJeu() {
+    public List<Joueur> detectHorsJeu() throws Exception {
         List<Joueur> resultats = new ArrayList<>();
         Mat hsvImage = new Mat();
         Imgproc.cvtColor(image, hsvImage, Imgproc.COLOR_BGR2HSV);
@@ -35,13 +35,21 @@ public class AnalyseImage {
                 new Scalar(170, 100, 100), new Scalar(180, 255, 255),  
                 JoueurCouleur.ROUGE
         );
-        
+
+        if(joueursRouges==null || joueursRouges.getJoueurs().size()<0){
+            throw new Exception("Aucun joueurs rouges detecter");
+        }
+
         Equipe joueursBleus = DetectionJoueur.detecterJoueurs(
                 hsvImage,
                 new Scalar(100, 100, 100), new Scalar(140, 255, 255), 
                 null, null,  
                 JoueurCouleur.BLEU
         );
+
+        if(joueursRouges==null || joueursRouges.getJoueurs().size()<0){
+            throw new Exception("Aucun joueurs rouges detecter");
+        }
     
          
         Ballon ballon = DetectionBallon.detecterBallon(hsvImage, new Scalar(0, 0, 0), new Scalar(180, 255, 50));
