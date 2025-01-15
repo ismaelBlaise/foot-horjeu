@@ -5,6 +5,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import util.Equipe;
 import util.Joueur;
 import util.JoueurCouleur;
 
@@ -13,21 +14,27 @@ import java.util.List;
 
 public class AnalyseHorsJeu {
 
-    public static List<Joueur> analyserJoueurs(Mat terrainImage,List<Joueur> joueurs, Joueur joueurProcheBallon, Point positionBallon, List<Joueur> joueursOpposants, int tailleTerrain) {
+    public static List<Joueur> analyserJoueurs(Mat terrainImage,Equipe joueurs, Joueur joueurProcheBallon, Point positionBallon, Equipe joueursOpposants, int tailleTerrain) {
         List<Joueur> resultats = new ArrayList<>();
         List<Joueur> joueursAll = new ArrayList<>();
-        joueursAll.addAll(joueurs);
-        joueursAll.addAll(joueursOpposants);
+        joueursAll.addAll(joueurs.getJoueurs());
+        joueursAll.addAll(joueursOpposants.getJoueurs());
         
         Joueur gardien = DetectionJoueur.detecterGardien(joueursAll, joueurProcheBallon.getCouleur(), 0, tailleTerrain);
         Joueur gardienOpposant = DetectionJoueur.detecterGardien(joueursAll, joueurProcheBallon.getCouleur().equals(JoueurCouleur.ROUGE) ? JoueurCouleur.BLEU : JoueurCouleur.ROUGE, 0, tailleTerrain);
-        Joueur dernierDefenseurOpposant = DetectionJoueur.detecterDernierDefenseur(joueursOpposants, gardienOpposant);
+        Joueur dernierDefenseurOpposant = DetectionJoueur.detecterDernierDefenseur(joueursOpposants.getJoueurs(), gardienOpposant);
+
+        joueurs.setGardien(gardien);
+        
+        joueursOpposants.setGardien(gardienOpposant);
+        joueursOpposants.setDernierDeffenseur(dernierDefenseurOpposant);
+
 
         if (dernierDefenseurOpposant != null) {
             tracerLigneDefenseur(terrainImage, dernierDefenseurOpposant);
         }
 
-        for (Joueur joueur : joueurs) {
+        for (Joueur joueur : joueurs.getJoueurs()) {
             
             if (joueur.equals(gardien) || joueur.equals(joueurProcheBallon)) {
                 continue;

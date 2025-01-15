@@ -3,25 +3,16 @@ package util;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 
-public class Joueur {
-    Point position;
+public class Joueur extends Entite{
     String couleur;
-    Rect dimension;
     String statut;
+    boolean gardien=false;
+    double partie;
 
     public Joueur(Point position, String couleur, Rect dimension) {
-        this.position = position;
+        super(position, dimension);
         this.couleur = couleur;
-        this.dimension = dimension;
         this.statut="";
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
     }
 
     public String getCouleur() {
@@ -32,19 +23,29 @@ public class Joueur {
         this.couleur = couleur;
     }
 
-    public Rect getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(Rect dimension) {
-        this.dimension = dimension;
-    }
-
     public void setStatut(String statut){
         this.statut=statut;
     }
 
     public String getStatut(){
         return this.statut;
+    }
+
+
+
+    public double getPartie() {
+        return partie;
+    }
+
+    public void setPartie(double partie) {
+        this.partie = partie;
+    }
+
+    public boolean isGardien() {
+        return gardien;
+    }
+
+    public void setGardien(boolean gardien) {
+        this.gardien = gardien;
     }
 }

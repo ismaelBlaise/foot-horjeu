@@ -3,6 +3,7 @@ package fonction;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
+import util.Equipe;
 import util.Joueur;
 
 import java.util.ArrayList;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public class DetectionJoueur {
 
-    public static List<Joueur> detecterJoueurs(Mat hsvImage, Scalar lowerBound1, Scalar upperBound1, Scalar lowerBound2, Scalar upperBound2, String couleur) {
+    public static Equipe detecterJoueurs(Mat hsvImage, Scalar lowerBound1, Scalar upperBound1, Scalar lowerBound2, Scalar upperBound2, String couleur) {
         Mat mask1 = new Mat();
         Core.inRange(hsvImage, lowerBound1, upperBound1, mask1);
-    
+        Equipe equipe=new Equipe();
         Mat mask = mask1.clone();
     
         if (lowerBound2 != null && upperBound2 != null) {
@@ -34,47 +35,91 @@ public class DetectionJoueur {
                 joueursDetectes.add(joueur);
             }
         }
-        return joueursDetectes;
+        equipe.setJoueurs(joueursDetectes);
+        return equipe;
     }
     
     
+    public static Joueur gardienPresent(List<Joueur> joueurs){
+        for (Joueur joueur : joueurs) {
+            if(joueur.isGardien()){
+                return joueur;
+            }
+        }
+        return null;
+    }
     
 
     public static Joueur detecterGardien(List<Joueur> joueurs, String couleur, double positionButGauche, double positionButDroit) {
         Joueur gardienDetecte = null;
         double distanceMin = Double.MAX_VALUE;
     
-         
+        
+        Joueur gardienAdverse = null;
         for (Joueur joueur : joueurs) {
-            
-            if (joueur.getCouleur().equals(couleur)) {
+            if (!joueur.getCouleur().equals(couleur) && joueur.isGardien()) {
+                gardienAdverse = joueur;
+                break;
+            }
+        }
     
-                
+        for (Joueur joueur : joueurs) {
+            if (joueur.getCouleur().equals(couleur)) {
+                 
                 double distanceGauche = Math.abs(joueur.getPosition().x - positionButGauche);
                 double distanceDroit = Math.abs(joueur.getPosition().x - positionButDroit);
     
                  
-                double distance = Math.min(distanceGauche, distanceDroit);
+                if (gardienAdverse != null) {
+                    if (gardienAdverse.getPartie() == positionButGauche) {
+                         
+                        distanceGauche = Double.MAX_VALUE;
+                    } else if (gardienAdverse.getPartie() == positionButDroit) {
+                         
+                        distanceDroit = Double.MAX_VALUE;
+                    }
+                }
     
                  
+                double distance = Math.min(distanceGauche, distanceDroit);
                 if (distance < distanceMin) {
                     distanceMin = distance;
                     gardienDetecte = joueur;
+    
+                     
+                    if (distanceGauche < distanceDroit) {
+                        joueur.setPartie(positionButGauche);
+                    } else {
+                        joueur.setPartie(positionButDroit);
+                    }
                 }
             }
         }
     
+        
+        if (gardienDetecte != null) {
+           
+            for (Joueur joueur : joueurs) {
+                if (joueur.getCouleur().equals(couleur)) {
+                    joueur.setGardien(false);
+                }
+            }
+            gardienDetecte.setGardien(true);
+        }
+    
         return gardienDetecte;
     }
+    
+    
      
     
     
     
 
-    public static Joueur detecterJoueurProcheDuBallon(List<Joueur> joueursRouges, List<Joueur> joueursBleus, Point positionBallon) {
+    public static Joueur detecterJoueurProcheDuBallon(Equipe joueursRouges, Equipe joueursBleus, Point positionBallon) {
         List<Joueur> tousLesJoueurs = new ArrayList<>();
-        tousLesJoueurs.addAll(joueursRouges);
-        tousLesJoueurs.addAll(joueursBleus);
+        tousLesJoueurs.addAll(joueursRouges.getJoueurs());
+        tousLesJoueurs.addAll(joueursBleus.getJoueurs());
     
         Joueur joueurProche = null;
         double distanceMin = Double.MAX_VALUE;

@@ -5,7 +5,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import util.Ballon;
-import util.But;
+import util.Equipe;
 import util.Joueur;
 import util.JoueurCouleur;
 
@@ -29,14 +29,14 @@ public class AnalyseImage {
         Imgproc.cvtColor(image, hsvImage, Imgproc.COLOR_BGR2HSV);
     
          
-        List<Joueur> joueursRouges = DetectionJoueur.detecterJoueurs(
+        Equipe joueursRouges = DetectionJoueur.detecterJoueurs(
                 hsvImage,
                 new Scalar(0, 100, 100), new Scalar(10, 255, 255),  
                 new Scalar(170, 100, 100), new Scalar(180, 255, 255),  
                 JoueurCouleur.ROUGE
         );
         
-        List<Joueur> joueursBleus = DetectionJoueur.detecterJoueurs(
+        Equipe joueursBleus = DetectionJoueur.detecterJoueurs(
                 hsvImage,
                 new Scalar(100, 100, 100), new Scalar(140, 255, 255), 
                 null, null,  
@@ -61,21 +61,9 @@ public class AnalyseImage {
         else{
             resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursRouges, joueurProcheBallon, positionBallon,  joueursBleus, image.cols()));
         }
-        
-
-        But[] buts = DetectionBut.detecterBut(image);  
-
-        
-        for (But but : buts) {
-            
-            if (but != null) {
-                
-                Imgproc.rectangle(image, but.getDimension().tl(), but.getDimension().br(), new Scalar(0, 255, 255), 2);
-            }
-        }
     
-        DessinerImage.dessinerSurImage(image, joueursRouges, joueursBleus, image.cols(), positionBallon, JoueurCouleur.ROUGE, joueurProcheBallon);
-        DessinerImage.dessinerSurImage(image, joueursBleus, joueursRouges,  image.cols(), positionBallon, JoueurCouleur.BLEU, joueurProcheBallon);
+        DessinerImage.dessinerSurImage(image, joueursRouges.getJoueurs(), joueursBleus.getJoueurs(), image.cols(), positionBallon, JoueurCouleur.ROUGE, joueurProcheBallon);
+        DessinerImage.dessinerSurImage(image, joueursBleus.getJoueurs(), joueursRouges.getJoueurs(),  image.cols(), positionBallon, JoueurCouleur.BLEU, joueurProcheBallon);
     
         Imgcodecs.imwrite("image_modifiee.png", image);
     
