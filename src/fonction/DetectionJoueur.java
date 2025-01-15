@@ -145,7 +145,9 @@ public class DetectionJoueur {
     
         for (Joueur joueur : joueursOpposants) {
             if (!joueur.equals(gardienOpposant)) {
-                double distance = calculerDistance(joueur.getPosition(), gardienOpposant.getPosition());
+                // double distance = calculerDistance(joueur.getPosition(), gardienOpposant.getPosition());
+                double distance = Math.abs(joueur.getPosition().x-gardienOpposant.getPosition().x);
+
                 if (distance < distanceMin) {
                     distanceMin = distance;
                     dernierDefenseur = joueur;
