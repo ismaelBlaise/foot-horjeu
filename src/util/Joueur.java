@@ -48,4 +48,13 @@ public class Joueur extends Entite{
     public void setGardien(boolean gardien) {
         this.gardien = gardien;
     }
+
+    public double getBordGauche() {
+        return this.position.x - (this.dimension.width / 2.0);
+    }
+    
+    public double getBordDroit() {
+        return this.position.x + (this.dimension.width / 2.0);
+    }
+    
 }

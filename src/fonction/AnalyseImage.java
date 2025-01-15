@@ -64,10 +64,10 @@ public class AnalyseImage {
         Joueur joueurProcheBallon = DetectionJoueur.detecterJoueurProcheDuBallon(joueursRouges, joueursBleus, positionBallon);
          
         if(joueurProcheBallon.getCouleur().equals(JoueurCouleur.BLEU)){
-            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursBleus, joueurProcheBallon, positionBallon, joueursRouges,   image.cols()));
+            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursBleus, joueurProcheBallon, ballon, joueursRouges,   image.cols()));
         }
         else{
-            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursRouges, joueurProcheBallon, positionBallon,  joueursBleus, image.cols()));
+            resultats.addAll(AnalyseHorsJeu.analyserJoueurs(image, joueursRouges, joueurProcheBallon, ballon,  joueursBleus, image.cols()));
         }
     
         DessinerImage.dessinerSurImage(image, joueursRouges.getJoueurs(), joueursBleus.getJoueurs(), image.cols(), positionBallon, JoueurCouleur.ROUGE, joueurProcheBallon);
