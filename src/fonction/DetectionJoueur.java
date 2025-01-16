@@ -11,33 +11,84 @@ import java.util.List;
 
 public class DetectionJoueur {
 
+    // public static Equipe detecterJoueurs(Mat hsvImage, Scalar lowerBound1, Scalar upperBound1, Scalar lowerBound2, Scalar upperBound2, String couleur) {
+    //     Mat mask1 = new Mat();
+    //     Core.inRange(hsvImage, lowerBound1, upperBound1, mask1);
+    //     Equipe equipe=new Equipe();
+    //     Mat mask = mask1.clone();
+    
+    //     if (lowerBound2 != null && upperBound2 != null) {
+    //         Mat mask2 = new Mat();
+    //         Core.inRange(hsvImage, lowerBound2, upperBound2, mask2);
+    //         Core.add(mask1, mask2, mask);
+    //     }
+    
+    //     List<MatOfPoint> contours = new ArrayList<>();
+    //     Mat hierarchy = new Mat();
+    //     Imgproc.findContours(mask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+    
+    //     List<Joueur> joueursDetectes = new ArrayList<>();
+    //     for (MatOfPoint contour : contours) {
+    //         if (Imgproc.contourArea(contour) > 200) {
+    //             Rect rect = Imgproc.boundingRect(contour);
+    //             Joueur joueur = new Joueur(new Point(rect.x + rect.width / 2, rect.y + rect.height / 2), couleur, rect);
+    //             joueursDetectes.add(joueur);
+    //         }
+    //     }
+    //     equipe.setJoueurs(joueursDetectes);
+    //     return equipe;
+    // }
+
+
     public static Equipe detecterJoueurs(Mat hsvImage, Scalar lowerBound1, Scalar upperBound1, Scalar lowerBound2, Scalar upperBound2, String couleur) {
+        // Masque pour détecter la première plage de couleur
         Mat mask1 = new Mat();
         Core.inRange(hsvImage, lowerBound1, upperBound1, mask1);
-        Equipe equipe=new Equipe();
+    
+        // Initialiser le masque final
         Mat mask = mask1.clone();
     
+        // Si une seconde plage est fournie, fusionner les masques
         if (lowerBound2 != null && upperBound2 != null) {
             Mat mask2 = new Mat();
             Core.inRange(hsvImage, lowerBound2, upperBound2, mask2);
-            Core.add(mask1, mask2, mask);
+            Core.add(mask1, mask2, mask); // Fusion des deux masques
         }
     
+        // Prétraitement pour améliorer la détection des petites formes
+        Imgproc.GaussianBlur(mask, mask, new Size(5, 5), 0); // Lisser l'image pour réduire le bruit
+        Imgproc.dilate(mask, mask, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3))); // Dilatation
+    
+        // Détection des contours
         List<MatOfPoint> contours = new ArrayList<>();
         Mat hierarchy = new Mat();
         Imgproc.findContours(mask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
     
+        // Liste des joueurs détectés
         List<Joueur> joueursDetectes = new ArrayList<>();
         for (MatOfPoint contour : contours) {
-            if (Imgproc.contourArea(contour) > 200) {
+            double area = Imgproc.contourArea(contour);
+    
+            // Réduction du seuil minimal pour inclure de plus petites formes
+            if (area > 50) { // Ajuster ce seuil si nécessaire
                 Rect rect = Imgproc.boundingRect(contour);
+    
+                // Créer un joueur à partir du contour détecté
                 Joueur joueur = new Joueur(new Point(rect.x + rect.width / 2, rect.y + rect.height / 2), couleur, rect);
                 joueursDetectes.add(joueur);
+    
+                // Optionnel : Dessiner le rectangle autour du joueur détecté
+                Imgproc.rectangle(hsvImage, rect.tl(), rect.br(), new Scalar(255, 255, 255), 2);
             }
         }
+    
+        // Créer l'équipe et y assigner les joueurs détectés
+        Equipe equipe = new Equipe();
         equipe.setJoueurs(joueursDetectes);
+    
         return equipe;
     }
+    
     
     
     public static Joueur gardienPresent(List<Joueur> joueurs){

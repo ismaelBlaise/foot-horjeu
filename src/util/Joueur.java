@@ -49,12 +49,20 @@ public class Joueur extends Entite{
         this.gardien = gardien;
     }
 
+    // public double getBordGauche() {
+    //     return this.position.x - (this.dimension.width / 2.0);
+    // }
+    
+    // public double getBordDroit() {
+    //     return this.position.x + (this.dimension.width / 2.0);
+    // }
+
     public double getBordGauche() {
-        return this.position.x - (this.dimension.width / 2.0);
+        return this.position.x ;
     }
     
     public double getBordDroit() {
-        return this.position.x + (this.dimension.width / 2.0);
+        return this.position.x + (this.dimension.width/2);
     }
     
 }

@@ -52,6 +52,7 @@ public class Fenetre extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, historyScrollPane, imagePanel);
         splitPane.setDividerLocation(200);
         add(splitPane, BorderLayout.CENTER);
+        // add(imagePanel);
     }
 
     private JMenuBar createMenuBar() {

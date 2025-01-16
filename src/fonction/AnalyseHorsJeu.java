@@ -9,6 +9,7 @@ import util.Ballon;
 import util.Equipe;
 import util.Joueur;
 import util.JoueurCouleur;
+import util.Statut;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,9 @@ public class AnalyseHorsJeu {
         Joueur gardien = DetectionJoueur.detecterGardien(joueursAll, joueurProcheBallon.getCouleur(), 0, tailleTerrain);
         Joueur gardienOpposant = DetectionJoueur.detecterGardien(joueursAll, joueurProcheBallon.getCouleur().equals(JoueurCouleur.ROUGE) ? JoueurCouleur.BLEU : JoueurCouleur.ROUGE, 0, tailleTerrain);
         Joueur dernierDefenseurOpposant = DetectionJoueur.detecterDernierDefenseur(joueursOpposants.getJoueurs(), gardienOpposant);
-
+        for (Joueur joueur : joueursOpposants.getJoueurs()) {
+            joueur.setPartie(gardienOpposant.getPartie());
+        }
         joueurs.setGardien(gardien);
         
         joueursOpposants.setGardien(gardienOpposant);
@@ -50,7 +53,7 @@ public class AnalyseHorsJeu {
         }
         
         if (dernierDefenseurOpposant != null) {
-            dernierDefenseurOpposant.setStatut("def");
+            dernierDefenseurOpposant.setStatut(Statut.DEF);
         }
         
         return resultats;
@@ -60,22 +63,31 @@ public class AnalyseHorsJeu {
          
         if (terrainImage != null && dernierDefenseurOpposant != null) {
  
-            Point pointDebut = new Point(dernierDefenseurOpposant.getPosition().x, 0);   
-            Point pointFin = new Point(dernierDefenseurOpposant.getPosition().x, terrainImage.rows());  
+            if(dernierDefenseurOpposant.getPartie()==0){
+                Point pointDebut = new Point(dernierDefenseurOpposant.getPosition().x-dernierDefenseurOpposant.getDimension().width/2, 0);   
+                Point pointFin = new Point(dernierDefenseurOpposant.getPosition().x-dernierDefenseurOpposant.getDimension().width/2, terrainImage.rows());  
 
-             
-            Imgproc.line(terrainImage, pointDebut, pointFin, new Scalar(0, 0, 255), 2);  
+                
+                Imgproc.line(terrainImage, pointDebut, pointFin, new Scalar(0, 0, 255), 2);  
+            }
+            else if(dernierDefenseurOpposant.getPartie()!=0){
+                Point pointDebut = new Point(dernierDefenseurOpposant.getPosition().x+dernierDefenseurOpposant.getDimension().width/2, 0);   
+                Point pointFin = new Point(dernierDefenseurOpposant.getPosition().x+dernierDefenseurOpposant.getDimension().width/2, terrainImage.rows());  
+
+                
+                Imgproc.line(terrainImage, pointDebut, pointFin, new Scalar(0, 0, 255), 2);  
+            }
         }
     }
 
     // private static void analyserHorsJeuPourGardienAdvantage(List<Joueur> resultats, Joueur joueur, Point positionBallon, Joueur dernierDefenseurOpposant) {
     //     if (joueur.getPosition().x < positionBallon.x && dernierDefenseurOpposant != null &&
     //                joueur.getPosition().x < dernierDefenseurOpposant.getPosition().x) {
-    //         joueur.setStatut("HJ");
+    //         joueur.setStatut(Statut.HJ);
     //         resultats.add(joueur);
     //     } else if (joueur.getPosition().x < positionBallon.x && dernierDefenseurOpposant != null &&
     //                joueur.getPosition().x > dernierDefenseurOpposant.getPosition().x) {
-    //         joueur.setStatut("EJ");
+    //         joueur.setStatut(Statut.EJ);
     //         resultats.add(joueur);
     //     }
     // }
@@ -90,11 +102,11 @@ public class AnalyseHorsJeu {
     
         // Vérification des hors-jeu avec les dimensions du ballon
         if (joueur.getBordGauche() < ballonBordGauche && joueur.getBordGauche() < defenseurX) {
-            joueur.setStatut("HJ");
+            joueur.setStatut(Statut.HJ);
             resultats.add(joueur);
         } 
         else if (joueur.getBordGauche() < ballonBordGauche && joueur.getBordDroit() > defenseurX) {
-            joueur.setStatut("EJ");
+            joueur.setStatut(Statut.EJ);
             resultats.add(joueur);
         }
     }
@@ -103,11 +115,11 @@ public class AnalyseHorsJeu {
     // private static void analyserHorsJeuPourGardienAdverseAdvantage(List<Joueur> resultats, Joueur joueur, Point positionBallon, Joueur dernierDefenseurOpposant) {
     //     if (joueur.getPosition().x > positionBallon.x && dernierDefenseurOpposant != null &&
     //         joueur.getPosition().x > dernierDefenseurOpposant.getPosition().x) {
-    //         joueur.setStatut("HJ");
+    //         joueur.setStatut(Statut.HJ);
     //         resultats.add(joueur);
     //     } else if (joueur.getPosition().x > positionBallon.x && dernierDefenseurOpposant != null &&
     //                joueur.getPosition().x < dernierDefenseurOpposant.getPosition().x) {
-    //         joueur.setStatut("EJ");
+    //         joueur.setStatut(Statut.EJ);
     //         resultats.add(joueur);
     //     } 
     // }
@@ -122,11 +134,11 @@ public class AnalyseHorsJeu {
     
         // Vérification des hors-jeu avec les dimensions du ballon
         if (joueur.getBordDroit() > ballonBordDroit && joueur.getBordDroit() > defenseurX) {
-            joueur.setStatut("HJ");
+            joueur.setStatut(Statut.HJ);
             resultats.add(joueur);
         } 
         else if (joueur.getBordDroit() > ballonBordDroit && joueur.getBordGauche() < defenseurX) {
-            joueur.setStatut("EJ");
+            joueur.setStatut(Statut.EJ);
             resultats.add(joueur);
         }
     }

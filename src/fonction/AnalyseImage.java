@@ -10,6 +10,7 @@ import util.Joueur;
 import util.JoueurCouleur;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AnalyseImage {
@@ -52,10 +53,16 @@ public class AnalyseImage {
         }
     
          
-        Ballon ballon = DetectionBallon.detecterBallon(hsvImage, new Scalar(0, 0, 0), new Scalar(180, 50, 50));
-        if (ballon == null) {
-            throw new IllegalArgumentException("Ballon non détecté.");
-        }
+        Ballon ballon = DetectionBallon.detecterBallon(hsvImage, Arrays.asList(new Scalar(0, 0, 0), // Plage 1 - Noir
+                                                                                                    // pur
+                new Scalar(0, 0, 30), // Plage 2 - Noir avec un peu plus de luminosité
+                new Scalar(0, 50, 0), // Plage 3 - Noir avec un peu plus de saturation
+                new Scalar(0, 50, 30) // Plage 4 - Noir légèrement saturé et lumineux
+        ), Arrays.asList(new Scalar(180, 50, 50), // Limite supérieure correspondante pour Plage 1
+                new Scalar(180, 50, 80), // Limite supérieure correspondante pour Plage 2
+                new Scalar(180, 100, 50), // Limite supérieure correspondante pour Plage 3
+                new Scalar(180, 100, 80) // Limite supérieure correspondante pour Plage 4
+        ));
          
         Imgproc.rectangle(image, ballon.getDimension().tl(), ballon.getDimension().br(),new Scalar(255, 255, 255), 2);
     
